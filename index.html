@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSmart - Expense Tracker</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container d-flex justify-content-between">
+            <span class="navbar-brand mb-0 h1">💰 SpendSmart</span>
+
+            <button id="themeToggle" class="btn btn-outline-light btn-sm">
+                🌙 Dark Mode
+            </button>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN CONTAINER ================= -->
+    <div class="container mt-4">
+
+        <h2 class="text-center mb-4">Expense Dashboard</h2>
+
+        <!-- ================= DASHBOARD CARDS ================= -->
+        <div class="row">
+
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card text-center p-3">
+                    <h5>Total Income</h5>
+                    <h3 id="totalIncome">₹0</h3>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card text-center p-3">
+                    <h5>Total Expense</h5>
+                    <h3 id="totalExpense">₹0</h3>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card text-center p-3">
+                    <h5>Balance</h5>
+                    <h3 id="balance">₹0</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= CATEGORY SUMMARY ================= -->
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">Category Summary</h4>
+
+            <div class="row text-center">
+
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="p-3 border rounded">
+                        <h6>🍔 Food</h6>
+                        <h5 id="foodTotal">₹0</h5>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="p-3 border rounded">
+                        <h6>✈ Travel</h6>
+                        <h5 id="travelTotal">₹0</h5>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="p-3 border rounded">
+                        <h6>🛍 Shopping</h6>
+                        <h5 id="shoppingTotal">₹0</h5>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-3 mb-3">
+                    <div class="p-3 border rounded">
+                        <h6>💡 Bills</h6>
+                        <h5 id="billsTotal">₹0</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= ADD TRANSACTION ================= -->
+        <div class="card p-4 mb-4">
+
+            <h4 class="mb-3">Add Transaction</h4>
+
+            <form id="transactionForm">
+                <div class="row">
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control" id="amount" required>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" id="category" required>
+                            <option value="">Select</option>
+                            <option>Food</option>
+                            <option>Travel</option>
+                            <option>Shopping</option>
+                            <option>Bills</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="form-label">Type</label>
+                        <select class="form-select" id="type" required>
+                            <option value="">Select</option>
+                            <option>Income</option>
+                            <option>Expense</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-3 mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" id="date" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Add Transaction
+                </button>
+            </form>
+        </div>
+
+        <!-- ================= TRANSACTION HISTORY ================= -->
+        <div class="card p-4 mb-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Transaction History</h4>
+    <button id="downloadCSV" class="btn btn-primary btn-sm">
+        Download Report
+    </button>
+</div>
+
+            <div class="mb-3">
+                <input type="text" id="searchInput" class="form-control"
+                    placeholder="🔍 Search by category or type...">
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="transactionTable">
+                        <tr id="emptyMessage">
+                            <td colspan="5">No transactions added yet</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+
+</body>
+</html>
